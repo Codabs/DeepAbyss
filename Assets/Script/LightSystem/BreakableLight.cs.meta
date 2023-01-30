@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 427409f2db83d2a48824d32f6e2896a2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - lightComponent: {instanceID: 0}
+  - blackLightMaterial: {fileID: 2100000, guid: 2a4ade80f4199e243bc863b731adb3e0,
+      type: 2}
+  - whiteLightMaterial: {fileID: 2100000, guid: d13636e3744e8c54695250e8c6e8e497,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
