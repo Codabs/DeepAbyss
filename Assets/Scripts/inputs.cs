@@ -71,6 +71,15 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interacte"",
+                    ""type"": ""Button"",
+                    ""id"": ""700e321e-a0ff-4c43-8bae-e4ddabe03df7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -238,6 +247,50 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9d1ef92c-4488-4086-b4bb-9d166f1fe829"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interacte"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9da1d2f6-4ec7-4852-a405-cc816b90c866"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interacte"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7e76f666-a8e6-498a-95bb-242488e4bf52"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interacte"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84ed7e89-efd4-4b39-a2b8-28f998522008"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interacte"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -251,6 +304,7 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_Light = m_Player.FindAction("Light", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_Interacte = m_Player.FindAction("Interacte", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -315,6 +369,7 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_Light;
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_Interacte;
     public struct PlayerActions
     {
         private @Inputs m_Wrapper;
@@ -324,6 +379,7 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputAction @Light => m_Wrapper.m_Player_Light;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @Interacte => m_Wrapper.m_Player_Interacte;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -348,6 +404,9 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                 @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                @Interacte.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteracte;
+                @Interacte.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteracte;
+                @Interacte.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteracte;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -367,6 +426,9 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @Interacte.started += instance.OnInteracte;
+                @Interacte.performed += instance.OnInteracte;
+                @Interacte.canceled += instance.OnInteracte;
             }
         }
     }
@@ -378,5 +440,6 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         void OnRun(InputAction.CallbackContext context);
         void OnLight(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnInteracte(InputAction.CallbackContext context);
     }
 }

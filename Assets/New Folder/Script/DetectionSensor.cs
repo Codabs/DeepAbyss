@@ -18,12 +18,14 @@ public class DetectionSensor : MonoBehaviour
 
         if (Physics.Raycast(cameraPosition, cameraForward, out hit, maxDistance))
         {
-            if(hit.collider.gameObject.tag == "Generator" && !hit.collider.GetComponent<Generator>().isOn)
+            if(hit.collider.gameObject.tag == "Generator")
             {
-                hit.collider.GetComponent<Generator>().On();
-                hit.collider.GetComponent<Generator>().door.generatorManager.ValidateStep();
-                hit.collider.GetComponent<Generator>().door.generatorManager.SpawnCurrentStep();
-                hit.collider.GetComponent<Generator>().door.VerifyAllGenerators();
+                Generator _generator = hit.collider.GetComponent<Generator>();
+                if (_generator.isOn) return ;
+                _generator.On();
+                _generator.door.generatorManager.ValidateStep();
+                _generator.door.generatorManager.SpawnCurrentStep();
+                _generator.door.VerifyAllGenerators();
             }
 
             if(hit.collider.gameObject.tag == "Door")

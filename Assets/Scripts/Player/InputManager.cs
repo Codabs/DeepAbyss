@@ -18,6 +18,8 @@ public class InputManager : Singleton<InputManager>
         inputs.Player.Light.started += ctx => StartLight(ctx);
 
         inputs.Player.Pause.started += ctx => StartOption(ctx);
+
+        inputs.Player.Interacte.started += ctx => StartInteracte(ctx);
     }
 
     private void OnEnable()
@@ -62,4 +64,9 @@ public class InputManager : Singleton<InputManager>
     public event StartOptionEvent OnStartOption;
     private void StartOption(InputAction.CallbackContext context)
     { if (OnStartOption != null) OnStartOption(); }
+
+    public delegate void StartInteracteEvent();
+    public event StartInteracteEvent OnStartInteracte;
+    private void StartInteracte(InputAction.CallbackContext context)
+    { if (OnStartInteracte != null) OnStartInteracte(); }
 }

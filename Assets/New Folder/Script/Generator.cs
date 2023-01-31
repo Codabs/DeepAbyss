@@ -6,20 +6,25 @@ public class Generator : MonoBehaviour
 {
     public Door door;
 
-    public DetectionSensor sensor;
-    public GameObject LG;
+    public GameObject _light;
     public bool isOn = false;
 
- 
+    Color color1 = Color.green;
+    Color color2 = Color.red;
+
+    private void Start()
+    {
+        _light.GetComponent<Light>().color = color2;
+    }
     public void On()
     {
-        LG.GetComponent<Light>().enabled = true;
+        _light.GetComponent<Light>().color = color1;
         isOn = true;
     }
 
     public void Off()
     {
-        LG.GetComponent<Light>().enabled = false;
+        _light.GetComponent<Light>().color = color2;
         isOn = false;
     }
 }
