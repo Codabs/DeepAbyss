@@ -13,6 +13,7 @@ public class EntityBrain : MonoBehaviour
     public EntityEyes entityEyes;
     public EntityListener entityListener;
     public EntityBody entityBody;
+    public new Rigidbody rigidbody;
 
     [Header("State Machine Variable")]
     public EntityState currentState;
@@ -20,7 +21,12 @@ public class EntityBrain : MonoBehaviour
     public string nameOfTheCurrentState;
 
     [Header("Ref")]
-    [SerializeField] private Transform player;
+    public Transform player;
+
+    [Header("speed")]
+    [SerializeField] private KdTree<Transform> roomList = new();
+
+
 
     //
     //MONOBEHAVIOUR
@@ -47,8 +53,30 @@ public class EntityBrain : MonoBehaviour
     {
         return entityEyes.CanISeeThisTransform(player);
     }
-    public void CanIHearThePlayer()
+    public bool CanIHearThePlayer()
     {
+        return false;
+    }
+    public bool IsTheEntityInTheDark()
+    {
+        bool value = false;
+        Transform room = InWhitchRoomTheEntityIs();
+        /*if(room.TryGetComponent<RoomScript>(out RoomScript script))
+        {
 
+        }*/
+        return value;
+    }
+    public Transform InWhitchRoomTheEntityIs()
+    {
+        Transform roomTHeEntityIs = null;
+        try
+        {
+            roomTHeEntityIs = roomList.FindClosest(transform.position);
+        }
+        catch
+        {
+        }
+        return roomTHeEntityIs;
     }
 }

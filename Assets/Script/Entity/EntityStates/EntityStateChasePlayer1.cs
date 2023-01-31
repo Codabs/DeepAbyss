@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityStateChasePlayerButILoseSight : EntityState
+public class EntityStateChasePlayer : EntityState
 {
-    public EntityStateChasePlayerButILoseSight(EntityBrain entityBrain, EntityStateFactory stateFactory) : base(entityBrain, stateFactory)
+    public EntityStateChasePlayer(EntityBrain entityBrain, EntityStateFactory stateFactory) : base(entityBrain, stateFactory)
     {
-        nameOhTheState = EntityStates.ChasePlayerButILoseSight;
+        nameOhTheState = EntityStates.ChasePlayer;
     }
     public override void EnterState()
     {
-
+        brain.entityPathfing.FollowThisTransform(brain.player);
     }
 
     public override void ExitState()
@@ -20,13 +20,14 @@ public class EntityStateChasePlayerButILoseSight : EntityState
 
     public override void StateUpdate()
     {
-
+        brain.entityPathfing.FollowThisTransform(brain.player);
+        CheckIfSwitchState();
     }
     private void CheckIfSwitchState()
     {
         if(!brain.CanISeeThePlayer())
         {
-            //SwitchState(ChasePlayerButNoSight)
+            SwitchState(factory.GetAnyState(EntityStates.ChasePlayerButILoseSight));
         }
     }
 }

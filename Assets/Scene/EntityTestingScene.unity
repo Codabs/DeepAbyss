@@ -1077,6 +1077,7 @@ MonoBehaviour:
   entityEyes: {fileID: 1541411155}
   entityListener: {fileID: 1541411154}
   entityBody: {fileID: 0}
+  rigidbody: {fileID: 0}
   nameOfTheCurrentState: 
   player: {fileID: 0}
 --- !u!114 &1541411149
@@ -1925,6 +1926,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bigDaddyTexture: {fileID: 2100000, guid: 137dd52576c021248bfeb6c143751a43, type: 2}
+  entityAnimator: {fileID: 1927719400385654046}
+  brain: {fileID: 1541411148}
 --- !u!1 &1938067763730469679
 GameObject:
   m_ObjectHideFlags: 0

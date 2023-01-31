@@ -30,7 +30,7 @@ public abstract class EntityState
     {
         //We execute the end state and enter of the new State
         ExitState();
-
+        Debug.Log("switch to" + newState.ToString());
         newState.EnterState();
 
         //We change the current state in the statemachine (brain)

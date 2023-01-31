@@ -10,8 +10,8 @@ public class EntityStateFollowPath : EntityState
     }
     public override void EnterState()
     {
+        //Go the closest waypoint
     }
-
     public override void ExitState()
     {
 
@@ -20,6 +20,7 @@ public class EntityStateFollowPath : EntityState
     public override void StateUpdate()
     {
         brain.entityPathfing.FollowPath();
+        CheckIfSwitchState();
     }
     private void CheckIfSwitchState()
     {
@@ -27,11 +28,11 @@ public class EntityStateFollowPath : EntityState
         if(brain.CanISeeThePlayer())
         {
             //Yes SwitchState to Chase
-            //SwitchState()
+            SwitchState(factory.GetAnyState(EntityStates.ChasePlayer));
         }
-        else if(brain.CanISeeThePlayer())
+        else if(brain.CanIHearThePlayer())
         {
-
+            SwitchState(factory.GetAnyState(EntityStates.Instpecting));
         }
         //Did I Hear The Player ?
         //Yes SwitchState to Inspecting 

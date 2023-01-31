@@ -38,10 +38,8 @@ public class BreakableLight : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        print("e");
         if(other.gameObject.TryGetComponent<EntityBrain>(out EntityBrain brain))
         {
-            print("e");
             if (!Physics.Linecast(transform.position, other.transform.position, viewMask))
             {
                 brain.entityBody.IsTheBodyAffectedByALight(transform.parent.gameObject);

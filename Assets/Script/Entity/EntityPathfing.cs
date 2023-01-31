@@ -82,9 +82,13 @@ public class EntityPathfing : MonoBehaviour
             targetWaypoint = waypoints[targetWaypointIndex];
         }
     }
-    public void FollowThisTransform(Transform transform)
+    public void FollowThisTransform(Transform transformToFollow)
     {
+        Vector3 positionOfTheTransform = transformToFollow.position;
 
+        //We restart the navMeshAgent
+        navMeshAgent.isStopped = false;
+        navMeshAgent.destination = positionOfTheTransform;
     }
 
     //
