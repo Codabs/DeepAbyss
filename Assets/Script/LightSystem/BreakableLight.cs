@@ -25,41 +25,9 @@ public class BreakableLight : MonoBehaviour
         meshRenderer = transform.parent.GetComponent<MeshRenderer>();
         lightColor = lightComponent.color;
     }
-    private void Reset()
-    {
-        try
-        {
-            lightComponent = gameObject.GetComponent<Light>();
-            SphereCollider collider = gameObject.AddComponent<SphereCollider>();
-            collider.radius = lightComponent.range;
-            collider.isTrigger = true;
-        }
-        catch { }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.TryGetComponent<EntityBrain>(out EntityBrain brain))
-        {
-            if (!Physics.Linecast(transform.position, other.transform.position, viewMask))
-            {
-                brain.entityBody.IsTheBodyAffectedByALight(transform.parent.gameObject);
-            }
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.TryGetComponent<EntityBrain>(out EntityBrain brain))
-        {
-            brain.entityBody.ThisLightDoesntAffectedTheBody(transform.parent.gameObject);
-        }
-    }
     //
     //FONCTION
     //
-    public void button()
-    {
-        StartCoroutine(ShutDownTheLight());
-    }
     public IEnumerator ShutDownTheLight()
     {
         bool flipflop = false;
@@ -84,7 +52,6 @@ public class BreakableLight : MonoBehaviour
         lightComponent.color = lightColor;
         meshRenderer.material = whiteLightMaterial;
     }
-
     private void DeactiveLight()
     {
         lightComponent.color = Color.black;
@@ -94,20 +61,5 @@ public class BreakableLight : MonoBehaviour
     {
         DeactiveLight();
         Destroy(gameObject);
-    }
-    //
-    //GIZMOS
-    //
-    private void OnDrawGizmos()
-    {
-        try
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, lightComponent.range);
-        }
-        catch
-        {
-
-        }
     }
 }

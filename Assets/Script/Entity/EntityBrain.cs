@@ -26,8 +26,6 @@ public class EntityBrain : MonoBehaviour
     [Header("speed")]
     [SerializeField] private KdTree<Transform> roomList = new();
 
-
-
     //
     //MONOBEHAVIOUR
     //
@@ -38,7 +36,7 @@ public class EntityBrain : MonoBehaviour
     private void Start()
     {
         factory = new EntityStateFactory(this);
-        currentState = factory.stateStart();
+        currentState = factory.GetAnyState(EntityState.EntityStates.NotActive);
         currentState.EnterState();
     }
     private void Update()
@@ -61,10 +59,10 @@ public class EntityBrain : MonoBehaviour
     {
         bool value = false;
         Transform room = InWhitchRoomTheEntityIs();
-        /*if(room.TryGetComponent<RoomScript>(out RoomScript script))
+        if(room.TryGetComponent<RoomScript>(out RoomScript script))
         {
-
-        }*/
+            value = script.AreTheLightOn;
+        }
         return value;
     }
     public Transform InWhitchRoomTheEntityIs()
@@ -78,5 +76,13 @@ public class EntityBrain : MonoBehaviour
         {
         }
         return roomTHeEntityIs;
+    }
+    public void StartTheSpeedManager()
+    {
+        StartCoroutine(entityPathfing.SpeedManager());
+    }
+    public void SpawnTheEntity()
+    {
+        currentState.SwitchState(factory.GetAnyState(EntityState.EntityStates.Start));
     }
 }

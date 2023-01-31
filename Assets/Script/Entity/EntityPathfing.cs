@@ -14,31 +14,19 @@ public class EntityPathfing : MonoBehaviour
     public float buffer = 0.05f;
     public float stopChance = 0.25f;
 
-    [Header("Nav Variables/Objects")]
-    public float notVisibleTime = 2f;
-    public float chaseSpeed = 6f;
-
-    [Header("Investigating Variables")]
-    public float investigatingTime = 2.5f;
-    public float outOfSightTime = 3.5f;
-    public float rotationSmoothing = 5f;
+    [Header("Nav Variables")]
+    private float maxSpeed = 7f;
+    private float minSpeed = 1f;
 
     [Header("Component")]
     [SerializeField] private NavMeshAgent navMeshAgent;
-    [SerializeField] private EntityBrain entityBrain;
+    [SerializeField] private EntityBrain brain;
 
     //Script variable
-    Transform player;
-    Vector3[] waypoints;
-    Vector3 startWaypoint;
-    Vector3 lastPosition;
-    bool isChasing = false;
-    float notVisibleTimeCounter;
-    float speed = 0f;
-    float investigatingTimerCounter;
-    float outOfSightTimeCounter;
+    private Vector3[] waypoints;
+    private Vector3 startWaypoint;
     int targetWaypointIndex;
-    Vector3 targetWaypoint;
+    private Vector3 targetWaypoint;
 
     //
     //FONCTION
@@ -91,6 +79,24 @@ public class EntityPathfing : MonoBehaviour
         navMeshAgent.destination = positionOfTheTransform;
     }
 
+    public IEnumerator SpeedManager()
+    {
+        float secondToWaitBeforeNextCheck = 1f;
+        if(brain.IsTheEntityInTheDark())
+        {
+            if (navMeshAgent.speed < maxSpeed) navMeshAgent.speed += 0.01f;
+        }
+        else
+        {
+            if (navMeshAgent.speed > minSpeed) 
+            { 
+                navMeshAgent.speed -= 0.2f;
+                secondToWaitBeforeNextCheck = 0.7f;
+            }
+        }
+        yield return new WaitForSeconds(secondToWaitBeforeNextCheck);
+        StartCoroutine(SpeedManager());
+    }
     //
     //GIZMOS
     //

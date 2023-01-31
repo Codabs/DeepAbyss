@@ -31,20 +31,15 @@ public class EntityBody : MonoBehaviour
     //
     //FONCTION
     //
-    public void IsTheBodyAffectedByALight(GameObject parent)
+    public IEnumerator StartingToBecomeInvisible()
     {
-        lightThatAffectTheBody.Add(parent);
-        indiceOfVisibility += 0.5f;
-        BecomingInvisible(indiceOfVisibility);
-    }
-    public void ThisLightDoesntAffectedTheBody(GameObject parent)
-    {
-        if(lightThatAffectTheBody.Contains(parent))
+        for(float i = 1; i > 0; i-=0.1f) 
         {
-            indiceOfVisibility -= 0.5f;
-            BecomingInvisible(indiceOfVisibility);
+            yield return new WaitForSeconds(0.1f);
+            BecomingInvisible(i);
         }
     }
+
     public void BecomingInvisible(float opacity)
     {
         if (opacity <= 0) opacity = 0;
