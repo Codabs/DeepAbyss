@@ -304,7 +304,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1927719400385654047}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EntityBody, Assembly-CSharp
         m_MethodName: BecomingInvisible
         m_Mode: 4
@@ -1922,12 +1922,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1264229706797807527}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 184211a60cb133745a9138a3c390ce16, type: 3}
+  m_Script: {fileID: 11500000, guid: 22f8ef0625dbbf040b38d917a946dd5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bigDaddyTexture: {fileID: 2100000, guid: 137dd52576c021248bfeb6c143751a43, type: 2}
   entityAnimator: {fileID: 1927719400385654046}
   brain: {fileID: 1541411148}
+  velocityBooster: 20
 --- !u!1 &1938067763730469679
 GameObject:
   m_ObjectHideFlags: 0

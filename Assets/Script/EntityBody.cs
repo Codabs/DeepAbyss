@@ -15,7 +15,7 @@ public class EntityBody : MonoBehaviour
     private List<GameObject> lightThatAffectTheBody = new();
 
     Vector3 previousPosition = Vector3.zero;
-    float velocityBooster = 1;
+    [SerializeField] float velocityBooster = 1;
 
     //
     //MONOBEHAVIOUR
