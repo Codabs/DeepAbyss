@@ -38,10 +38,14 @@ public class RoomScript : MonoBehaviour
     //
     private void OnDrawGizmos()
     {
-        Gizmos.color = gizmosColor;
-        for (int i = 0; i <= lightsInTheRoom.Length; i++)
+        try
         {
-            Gizmos.DrawIcon(lightsInTheRoom[i].transform.position, "F");
+            Gizmos.color = gizmosColor;
+            for (int i = 0; i <= lightsInTheRoom.Length; i++)
+            {
+                Gizmos.DrawWireCube(lightsInTheRoom[i].transform.position, Vector3.one * 0.5f);
+            }
         }
+        catch { }
     }
 }

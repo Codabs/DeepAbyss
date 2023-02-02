@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class EntityStateInspecting : EntityState
 {
+    //
+    //Variables
+    //
+    private Transform positionOfTheSound = null;
     public EntityStateInspecting(EntityBrain entityBrain, EntityStateFactory stateFactory) : base(entityBrain, stateFactory)
     {
         nameOhTheState = EntityStates.Instpecting;
@@ -12,25 +16,37 @@ public class EntityStateInspecting : EntityState
     public override void EnterState()
     {
         Debug.Log("The Entity wears something");
+        //We create a Transform
+        positionOfTheSound = new GameObject("oldPositionOfThePlayer").transform;
+
+        //positionOfTheSound.position = brain.player.position;
     }
 
     public override void ExitState()
     {
-
+        positionOfTheSound = null;
     }
 
     public override void StateUpdate()
     {
         //Aller à la location du sound
-
+        brain.entityPathfing.FollowThisTransform(positionOfTheSound);
+        if(brain.CanIHearThePlayer())
+        {
+            //positionOfTheSound = 
+        }
         //Si on n'a pas trouver le joueur partir sur le chemin plus proche
-
+        CheckIfSwitchState();
     }
     private void CheckIfSwitchState()
     {
         if(brain.CanISeeThePlayer())
         {
-            //SwitchState(ChasePlayerButNoSight)
+            SwitchState(factory.GetAnyState(EntityStates.ChasePlayer));
+        }
+        if(brain.entityEyes.CanISeeThisTransform(positionOfTheSound))
+        {
+            SwitchState(factory.GetAnyState(EntityStates.FollowPath));
         }
     }
 }
