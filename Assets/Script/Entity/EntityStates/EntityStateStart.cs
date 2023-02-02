@@ -12,8 +12,7 @@ public class EntityStateStart : EntityState
     {
         brain.entityPathfing.ChosePath(0);
         brain.entityPathfing.Init();
-        brain.StartTheSpeedManager();
-        SwitchState(factory.stateFollowPath());
+        SwitchState(factory.GetAnyState(EntityStates.FollowPath));
     }
 
     public override void ExitState()

@@ -24,7 +24,9 @@ public class EntityBrain : MonoBehaviour
     public Transform player;
 
     [Header("speed")]
-    [SerializeField] private KdTree<Transform> roomList = new();
+    [SerializeField] private List<Transform> roomList = new();
+    private KdTree<Transform> roomKdTree = new();
+    public bool IsThePlayerFlashingTheEntity = false;
 
     //
     //MONOBEHAVIOUR
@@ -32,16 +34,20 @@ public class EntityBrain : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        roomKdTree.AddAll(roomList);
     }
     private void Start()
     {
         factory = new EntityStateFactory(this);
-        currentState = factory.GetAnyState(EntityState.EntityStates.NotActive);
+        currentState = factory.GetAnyState(EntityState.EntityStates.Start);
         currentState.EnterState();
+        entityPathfing.StartSpeedManager();
+        StartCoroutine(ShouldIBreakTheLightInTheRoom());
     }
     private void Update()
     {
         currentState.StateUpdate();
+        nameOfTheCurrentState = currentState.nameOhTheState.ToString();
     }
 
     //
@@ -57,11 +63,11 @@ public class EntityBrain : MonoBehaviour
     }
     public bool IsTheEntityInTheDark()
     {
-        bool value = false;
+        bool value = true;
         Transform room = InWhitchRoomTheEntityIs();
         if(room.TryGetComponent<RoomScript>(out RoomScript script))
         {
-            value = script.AreTheLightOn;
+            value = !script.AreTheLightOn;
         }
         return value;
     }
@@ -70,19 +76,28 @@ public class EntityBrain : MonoBehaviour
         Transform roomTHeEntityIs = null;
         try
         {
-            roomTHeEntityIs = roomList.FindClosest(transform.position);
+            roomTHeEntityIs = roomKdTree.FindClosest(transform.position);
         }
         catch
         {
+            Debug.Log("roomNotFound");
         }
         return roomTHeEntityIs;
     }
-    public void StartTheSpeedManager()
+    private IEnumerator ShouldIBreakTheLightInTheRoom()
     {
-        StartCoroutine(entityPathfing.SpeedManager());
-    }
-    public void SpawnTheEntity()
-    {
-        currentState.SwitchState(factory.GetAnyState(EntityState.EntityStates.Start));
+        yield return new WaitForSeconds(5f);
+        if(IsTheEntityInTheDark())
+        {
+            float randomParameter = 1f;
+            //if(nameOfTheCurrentState == EntityStates.EntityStates.Chase) randomParameter = 2f;
+            if (UnityEngine.Random.value <= randomParameter)
+            {
+                //tkt
+                Debug.LogWarning("DestroyingTheLight");
+                StartCoroutine(InWhitchRoomTheEntityIs().GetComponent<RoomScript>().ShutDownAllLightInTheRoom());
+            }
+        }
+        StartCoroutine(ShouldIBreakTheLightInTheRoom());
     }
 }

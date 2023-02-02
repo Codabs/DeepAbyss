@@ -57,7 +57,6 @@ public class EntityPathfing : MonoBehaviour
         //We restart the navMeshAgent
         navMeshAgent.isStopped = false;
         navMeshAgent.destination = targetWaypoint;
-
         //Did the Entity is in the destination
         if (Vector3.Distance(transform.position, targetWaypoint) <= buffer)
         {
@@ -78,11 +77,14 @@ public class EntityPathfing : MonoBehaviour
         navMeshAgent.isStopped = false;
         navMeshAgent.destination = positionOfTheTransform;
     }
-
+    public void StartSpeedManager()
+    {
+        StartCoroutine(SpeedManager());
+    }
     public IEnumerator SpeedManager()
     {
         float secondToWaitBeforeNextCheck = 1f;
-        if(brain.IsTheEntityInTheDark())
+        if(brain.IsTheEntityInTheDark() && !brain.IsThePlayerFlashingTheEntity)
         {
             if (navMeshAgent.speed < maxSpeed) navMeshAgent.speed += 0.01f;
         }

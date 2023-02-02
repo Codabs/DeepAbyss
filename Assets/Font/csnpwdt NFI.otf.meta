@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 4a5b7a2e4297147439dbe8f642acbee6
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - CSNPWDT NFI
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: f6a0168e2d6d2a149b35ba413d1c5472, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
