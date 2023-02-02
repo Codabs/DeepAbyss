@@ -716,7 +716,7 @@ MonoBehaviour:
   lightSource: {fileID: 5363634183745803724}
   lightButtonSound: {fileID: 8300000, guid: 089129fce4fbea44c95f50e78919d7b6, type: 3}
   isUnderWater: 0
-  waterHeigth: 1.3
+  waterHeigth: -4
   volume: {fileID: 0}
   normalProfile: {fileID: 11400000, guid: b271704a00e9078448afd928405a0ddd, type: 2}
   underWaterProfile: {fileID: 11400000, guid: e453891558e484b45b3c692d90fe5176, type: 2}

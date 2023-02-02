@@ -229,7 +229,6 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
     /// </summary>
     public void EnableLight() 
     { 
-        if (isUnderWater) return; 
         _enabledLight = true; 
         _light.gameObject.SetActive(true); 
         lightSource.PlayOneShot(lightButtonSound); 
@@ -242,7 +241,6 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
     {
         _enabledLight = false;
         _light.gameObject.SetActive(false);
-        if (isUnderWater) return;
         lightSource.PlayOneShot(lightButtonSound);
     }
 
@@ -283,9 +281,6 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
                 volume.profile = underWaterProfile;
 
             isUnderWater = true;
-
-            if (_enabledLight)
-                DisableLight();
         }
         else 
         {
