@@ -314,8 +314,10 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
             if (_generator.isOn) return;
             _generator.On();
             _generator.door.generatorManager.ValidateStep();
-            _generator.door.generatorManager.SpawnCurrentStep();
-            _generator.door.VerifyAllGenerators();
+            //_generator.door.generatorManager.SpawnCurrentStep();
+            //_generator.door.VerifyAllGenerators();
+            hitInteracte.collider.gameObject.layer = 0;
+            Debug.Log($"layer {hitInteracte.collider.gameObject.layer}");
         }
 
         if (hitInteracte.collider.gameObject.tag == "Door")
@@ -344,6 +346,7 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
             MeshRenderer mm = hitGO.GetComponent<MeshRenderer>();
 
             Debug.Log($" hit {hitGO.name}");
+
 
             if (OldInteractableObject != hitGO)
             {
