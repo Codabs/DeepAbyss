@@ -57,6 +57,9 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
         // Lumière
         if (_enabledLight)
             RayOfLight();
+
+        // interactable
+        Detect();
     }
 
     private void FixedUpdate()
@@ -86,6 +89,8 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
         _inputs.OnStartLight += FlipFlopLight;
 
         _inputs.OnStartOption += Pause;
+
+        _inputs.OnStartInteracte += Interacte;
     }
     private void UnregisterInput()
     {
@@ -95,6 +100,8 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
         _inputs.OnStartLight -= FlipFlopLight;
 
         _inputs.OnStartOption -= Pause;
+
+        _inputs.OnStartInteracte -= Interacte;
     }
 
     #endregion
@@ -185,7 +192,7 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
     #region Gravité
 
     // information de la gravité
-    [Header("Gravity")]
+    [Space(5), Header("Gravity")]
     private Vector3 moveDirection = Vector3.zero;
     [SerializeField] private float gravity = 30f;
     void GravityHandler() 
@@ -203,6 +210,8 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
     #endregion
 
     #region light
+
+    [Space(5), Header("Light")]
 
     [SerializeField] private LayerMask _lightLayerDetection;
     [SerializeField] private bool _enabledLight = true;
@@ -258,6 +267,8 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
 
     #region water
 
+    [Space(5), Header("Water")]
+
     [SerializeField] private bool isUnderWater;
     [SerializeField] private float waterHeigth;
     [SerializeField] private Volume volume;
@@ -282,6 +293,91 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
                 volume.profile = normalProfile;
 
             isUnderWater = false;
+        }
+    }
+
+    #endregion
+
+    #region Interactable
+
+    [Space(5), Header("Interaction")]
+
+    [SerializeField] private float maxDistanceInteractable;
+
+    void Interacte()
+    {
+        if (hitInteracte.collider == null) return;
+
+        if (hitInteracte.collider.gameObject.tag == "Generator")
+        {
+            Generator _generator = hitInteracte.collider.GetComponent<Generator>();
+            if (_generator.isOn) return;
+            _generator.On();
+            _generator.door.generatorManager.ValidateStep();
+            _generator.door.generatorManager.SpawnCurrentStep();
+            _generator.door.VerifyAllGenerators();
+        }
+
+        if (hitInteracte.collider.gameObject.tag == "Door")
+        {
+            hitInteracte.collider.GetComponent<DoorCollider>().door.Exit();
+        }
+    }
+
+
+    RaycastHit hitInteracte;
+    [SerializeField] private Material materialOutline;
+    [SerializeField] private Material OldMaterial;
+    [SerializeField] private GameObject OldInteractableObject;
+
+    [SerializeField] private LayerMask layerMaskInteractable;
+
+    public void Detect()
+    {
+        Vector3 cameraPosition = _camera.transform.position;
+        Vector3 cameraForward = _camera.transform.forward;
+
+
+        if (Physics.Raycast(cameraPosition, cameraForward, out hitInteracte, maxDistanceInteractable, layerMaskInteractable))
+        {
+            GameObject hitGO = hitInteracte.collider.gameObject;
+            MeshRenderer mm = hitGO.GetComponent<MeshRenderer>();
+
+            Debug.Log($" hit {hitGO.name}");
+
+            if (OldInteractableObject != hitGO)
+            {
+                OldInteractableObject = hitGO;
+                if (mm.material == materialOutline) return;
+
+                OldMaterial = hitGO.GetComponent<MeshRenderer>().material;
+
+                Material[] materials = new Material[2];
+                materials[0] = hitGO.GetComponent<MeshRenderer>().material;
+                materials[1] = materialOutline;
+
+                hitGO.GetComponent<MeshRenderer>().materials = materials;
+
+                Debug.Log("Modify material");
+            }
+
+            Debug.DrawRay(cameraPosition, cameraForward * maxDistanceInteractable, Color.green);
+        }
+        else
+        {
+            Debug.DrawRay(cameraPosition, cameraForward * maxDistanceInteractable, Color.red);
+
+            Debug.Log(" hit nothing");
+
+            if (OldInteractableObject == null) return;
+
+            Material[] materials = new Material[1];
+            materials[0] = OldInteractableObject.GetComponent<MeshRenderer>().materials[0];
+            OldInteractableObject.GetComponent<MeshRenderer>().materials = materials;
+
+            OldInteractableObject = null;
+
+            Debug.Log("Remove material");
         }
     }
 

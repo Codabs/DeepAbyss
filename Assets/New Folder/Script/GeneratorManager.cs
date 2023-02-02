@@ -51,6 +51,7 @@ public class GeneratorManager : MonoBehaviour
     }
     public void SpawnMonster(SpawnMonstre newSpawnMonstre)
     {
+        if (spawnMonstre == null) return;
         if(step == 1)
         {
             GameObject monstre = Instantiate(monstrePrefab, newSpawnMonstre.transform.position, newSpawnMonstre.transform.rotation);
