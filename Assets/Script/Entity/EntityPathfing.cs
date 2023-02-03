@@ -15,19 +15,20 @@ public class EntityPathfing : MonoBehaviour
     public float stopChance = 0.25f;
 
     [Header("Nav Variables")]
-    private float maxSpeed = 7f;
-    private float minSpeed = 1f;
+    public float maxSpeed = 10f;
+    public float minSpeed = 3f;
 
     [Header("Component")]
-    [SerializeField] private NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent;
     [SerializeField] private EntityBrain brain;
 
     //Script variable
-    private Vector3[] waypoints;
+    private Transform[] waypoints;
+    public KdTree<Transform> waypointsKdTree = new();
     private Vector3 startWaypoint;
     int targetWaypointIndex;
     private Vector3 targetWaypoint;
-
+    public int actualPath = 0;
     //
     //FONCTION
     //
@@ -37,20 +38,22 @@ public class EntityPathfing : MonoBehaviour
         if (pathNumber > pathHolder.Length) return;
 
         //We get all the waypoints in the path
-        waypoints = new Vector3[pathHolder[pathNumber].childCount];
+        waypoints = new Transform[pathHolder[pathNumber].childCount];
+
         for (int i = 0; i < waypoints.Length; i++)
         {
-            waypoints[i] = pathHolder[pathNumber].GetChild(i).position;
+            waypoints[i] = pathHolder[pathNumber].GetChild(i);
             //We change the y position of the waypoint to match the entity 
-            waypoints[i] = new Vector3(waypoints[i].x, transform.position.y, waypoints[i].z);
+            //NavMesh.SamplePosition(waypoints[i].position, out NavMeshHit navHit, 10, 0);
+            waypoints[i].position = waypoints[i].position;
         }
-        startWaypoint = waypoints[0];
+        startWaypoint = waypoints[0].position;
     }
     public  void Init()
     {
-        transform.position = waypoints[0];
+        transform.position = waypoints[0].position;
         targetWaypointIndex = 1;
-        targetWaypoint = waypoints[targetWaypointIndex];
+        targetWaypoint = waypoints[targetWaypointIndex].position;
     }
     public void FollowPath()
     {
@@ -66,7 +69,7 @@ public class EntityPathfing : MonoBehaviour
                 targetWaypointIndex = 0;
             else 
                 targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length;
-            targetWaypoint = waypoints[targetWaypointIndex];
+            targetWaypoint = waypoints[targetWaypointIndex].position;
         }
     }
     public void FollowThisTransform(Transform transformToFollow)
@@ -83,19 +86,8 @@ public class EntityPathfing : MonoBehaviour
     }
     public IEnumerator SpeedManager()
     {
-        float secondToWaitBeforeNextCheck = 1f;
-        if(brain.IsTheEntityInTheDark() && !brain.IsThePlayerFlashingTheEntity)
-        {
-            if (navMeshAgent.speed < maxSpeed) navMeshAgent.speed += 0.01f;
-        }
-        else
-        {
-            if (navMeshAgent.speed > minSpeed) 
-            { 
-                navMeshAgent.speed -= 0.2f;
-                secondToWaitBeforeNextCheck = 0.7f;
-            }
-        }
+        float secondToWaitBeforeNextCheck = 0.3f;
+        if (navMeshAgent.speed < maxSpeed) navMeshAgent.speed += 0.2f;
         yield return new WaitForSeconds(secondToWaitBeforeNextCheck);
         StartCoroutine(SpeedManager());
     }

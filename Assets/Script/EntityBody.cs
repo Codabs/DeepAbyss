@@ -8,14 +8,11 @@ public class EntityBody : MonoBehaviour
     //VARIABLE
     //
     [SerializeField] private Material bigDaddyTexture;
-    float indiceOfVisibility = 1;
     [SerializeField] private Animator entityAnimator;
     [SerializeField] private EntityBrain brain;
     private SkinnedMeshRenderer[] meshRenderers = new SkinnedMeshRenderer[10];
-    private List<GameObject> lightThatAffectTheBody = new();
 
     Vector3 previousPosition = Vector3.zero;
-    [SerializeField] float velocityBooster = 1;
 
     //
     //MONOBEHAVIOUR
@@ -26,19 +23,11 @@ public class EntityBody : MonoBehaviour
     }
     private void Update()
     {
-        AnimationManager();
+        entityAnimator.speed = brain.entityPathfing.navMeshAgent.speed / 2;
     }
     //
     //FONCTION
     //
-    public IEnumerator StartingToBecomeInvisible()
-    {
-        for(float i = 1; i > 0; i-=0.1f) 
-        {
-            yield return new WaitForSeconds(0.1f);
-            BecomingInvisible(i);
-        }
-    }
 
     public void BecomingInvisible(float opacity)
     {
@@ -49,12 +38,5 @@ public class EntityBody : MonoBehaviour
             renderer.material.SetColor("_BaseColor", new Vector4(255, 255, 255, opacity));
             renderer.material.SetFloat("_Smoothness", 1 - opacity);
         }
-    }
-    public void AnimationManager()
-    {
-        Vector3 velocity = transform.position - previousPosition;
-        previousPosition = brain.transform.position;
-        float value = Mathf.Abs(velocity.x) + Mathf.Abs(velocity.z);
-        entityAnimator.SetFloat("Velocity", value * velocityBooster);
     }
 }

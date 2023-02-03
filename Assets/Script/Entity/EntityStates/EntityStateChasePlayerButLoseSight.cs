@@ -23,13 +23,24 @@ public class EntityStateChasePlayerButLoseSight : EntityState
     public override void StateUpdate()
     {
         //We start a timer of 10 sec, after that, if the entity didn't see the player, the go pack on follow path
-        if(timer > 10)
+        if(timer > 25)
         {
             SwitchState(factory.GetAnyState(EntityStates.FollowPath));
         }
         else
         {
             timer += Time.deltaTime;
+        }
+        if (!brain.IsTheEntityInTheDark())
+        {
+            brain.entityPathfing.navMeshAgent.speed -= 2.5f;
+            brain.BreakTheLightOnTheCurrentRoom();
+            if (brain.entityPathfing.navMeshAgent.speed > 6)
+            {
+                brain.entityPathfing.ChosePath(0);
+                brain.entityPathfing.Init();
+                SwitchState(factory.GetAnyState(EntityStates.ChasePlayer));
+            }
         }
         CheckIfSwitchState();
         //The Entity have to follow the player

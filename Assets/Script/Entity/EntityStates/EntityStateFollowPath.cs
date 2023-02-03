@@ -11,6 +11,9 @@ public class EntityStateFollowPath : EntityState
     public override void EnterState()
     {
         //Go the closest waypoint
+        brain.redLight.SetActive(false);
+        brain.entityPathfing.ChosePath(brain.entityPathfing.actualPath);
+        brain.IsThePlayerGettingChase = false;
     }
     public override void ExitState()
     {
@@ -20,6 +23,7 @@ public class EntityStateFollowPath : EntityState
     public override void StateUpdate()
     {
         brain.entityPathfing.FollowPath();
+        if (brain.entityPathfing.navMeshAgent.speed < 4) brain.entityPathfing.navMeshAgent.speed = 4;
         CheckIfSwitchState();
     }
     private void CheckIfSwitchState()
