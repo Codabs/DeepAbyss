@@ -248,20 +248,23 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
 
 
     // tire un raycast tout droit quand la lampe et activer
-    public bool RayOfLight()
+    public void RayOfLight()
     {
         RaycastHit hit;
         if (Physics.Raycast(_pointLight.transform.position, _pointLight.transform.forward, out hit, 25f, _lightLayerDetection))
         {
             Debug.DrawRay(_pointLight.transform.position, _pointLight.transform.TransformDirection(Vector3.forward) * hit.distance, Color.green);
             Debug.Log($"Did hit {hit.collider.name}");
-            return true;
+            if(hit.collider.TryGetComponent<EntityBrain>(out EntityBrain brain))
+            {
+                if(brain.IsThePlayerGettingChase) 
+                brain.entityPathfing.navMeshAgent.speed -= 0.7f;
+            }
         }
         else
         {
             Debug.DrawRay(_pointLight.transform.position, _pointLight.transform.TransformDirection(Vector3.forward) * 25f, Color.red);
             Debug.Log("Didn't hit");
-            return false;
         }
     }
 

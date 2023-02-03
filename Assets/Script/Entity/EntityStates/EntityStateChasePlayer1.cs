@@ -12,7 +12,6 @@ public class EntityStateChasePlayer : EntityState
     {
         brain.entityPathfing.FollowThisTransform(brain.player);
         brain.redLight.SetActive(true);
-        if(brain.IsThePlayerGettingChase!) brain.entityPathfing.navMeshAgent.speed = brain.entityPathfing.maxSpeed;
         brain.IsThePlayerGettingChase = true;
     }
     public override void ExitState()
@@ -23,12 +22,6 @@ public class EntityStateChasePlayer : EntityState
     public override void StateUpdate()
     {
         brain.entityPathfing.FollowThisTransform(brain.player);
-        if(brain.entityPathfing.navMeshAgent.speed > 6)
-        {
-            brain.entityPathfing.ChosePath(0);
-            brain.entityPathfing.Init();
-            SwitchState(factory.GetAnyState(EntityStates.ChasePlayer));
-        }
         CheckIfSwitchState();
     }
     private void CheckIfSwitchState()

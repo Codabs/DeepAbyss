@@ -45,22 +45,15 @@ public class EntityBrain : MonoBehaviour
         factory = new EntityStateFactory(this);
         currentState = factory.GetAnyState(EntityState.EntityStates.Start);
         currentState.EnterState();
-        entityPathfing.StartSpeedManager();
+        //entityPathfing.StartSpeedManager();
         //StartCoroutine(ShouldIBreakTheLightInTheRoom());
     }
     private void Update()
     {
         currentState.StateUpdate();
         nameOfTheCurrentState = currentState.nameOhTheState.ToString();
-        if (player.gameObject.TryGetComponent<Player_Controller_1st_Person>(out Player_Controller_1st_Person script))
-        {
-            IsThePlayerFlashingTheEntity = script.RayOfLight();
-        }
-        if (IsThePlayerFlashingTheEntity)
-        {
-            print("flash");
-            entityPathfing.navMeshAgent.speed -= 0.02f;
-        }
+        if(entityPathfing.navMeshAgent.speed < 15)
+            entityPathfing.navMeshAgent.speed += 0.05f;
     }
     //
     //FONCTION
@@ -71,14 +64,10 @@ public class EntityBrain : MonoBehaviour
     }
     public bool CanIHearThePlayer()
     {
-        Vector3 soundPosition = entityListener.ListenForPlayerSound();
-        if (soundPosition == Vector3.zero) return false;
-        else
-        {
-            positionOfTheSound = soundPosition;
-            return true;
-        }
+        return false;
     }
+
+    /*
     public bool IsTheEntityInTheDark()
     {
         Transform room = InWhitchRoomTheEntityIs();
@@ -135,4 +124,5 @@ public class EntityBrain : MonoBehaviour
         }
         StartCoroutine(ShouldIBreakTheLightInTheRoom());
     }
+    */
 }

@@ -31,17 +31,6 @@ public class EntityStateChasePlayerButLoseSight : EntityState
         {
             timer += Time.deltaTime;
         }
-        if (!brain.IsTheEntityInTheDark())
-        {
-            brain.entityPathfing.navMeshAgent.speed -= 2.5f;
-            brain.BreakTheLightOnTheCurrentRoom();
-            if (brain.entityPathfing.navMeshAgent.speed > 6)
-            {
-                brain.entityPathfing.ChosePath(0);
-                brain.entityPathfing.Init();
-                SwitchState(factory.GetAnyState(EntityStates.ChasePlayer));
-            }
-        }
         CheckIfSwitchState();
         //The Entity have to follow the player
         brain.entityPathfing.FollowThisTransform(brain.player);

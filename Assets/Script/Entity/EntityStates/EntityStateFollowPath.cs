@@ -23,7 +23,6 @@ public class EntityStateFollowPath : EntityState
     public override void StateUpdate()
     {
         brain.entityPathfing.FollowPath();
-        if (brain.entityPathfing.navMeshAgent.speed < 4) brain.entityPathfing.navMeshAgent.speed = 4;
         CheckIfSwitchState();
     }
     private void CheckIfSwitchState()
@@ -33,10 +32,6 @@ public class EntityStateFollowPath : EntityState
         {
             //Yes SwitchState to Chase
             SwitchState(factory.GetAnyState(EntityStates.ChasePlayer));
-        }
-        else if(brain.CanIHearThePlayer())
-        {
-            SwitchState(factory.GetAnyState(EntityStates.Instpecting));
         }
         //Did I Hear The Player ?
         //Yes SwitchState to Inspecting 
