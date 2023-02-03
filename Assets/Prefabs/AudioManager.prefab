@@ -52,13 +52,13 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Menu
-    clip: {fileID: 8300000, guid: 847b8bc7569c5db46a54d81a865eceb9, type: 3}
+    clip: {fileID: 8300000, guid: 435787310418314459e343c00ea18c56, type: 3}
     volume: 0.15
-    pitch: 1.2
+    pitch: 1.1
     loop: 1
     source: {fileID: 0}
   - name: Ambiance1
-    clip: {fileID: 8300000, guid: 435787310418314459e343c00ea18c56, type: 3}
+    clip: {fileID: 8300000, guid: 847b8bc7569c5db46a54d81a865eceb9, type: 3}
     volume: 0.09
     pitch: 0.8
     loop: 1

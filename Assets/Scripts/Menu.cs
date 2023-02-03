@@ -10,10 +10,14 @@ public class Menu : MonoBehaviour
     private Animator transitionAnimator;
     private void Awake()
     {
-        FindObjectOfType<AudioManager>().PlaySound("Menu");
         UnityEngine.Cursor.lockState = CursorLockMode.None;
         UnityEngine.Cursor.visible = true;
     }
+
+    public void Start(){
+        FindObjectOfType<AudioManager>().PlaySound("Menu");
+    }
+    
     public void _Start()
     {
         StartCoroutine(transitionEnd());
