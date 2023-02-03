@@ -24,13 +24,10 @@ public class EntityBrain : MonoBehaviour
     public Transform player;
 
     [Header("speed")]
-    [SerializeField] private List<Transform> roomList = new();
-    private KdTree<Transform> roomKdTree = new();
     public bool IsThePlayerFlashingTheEntity = false;
 
     public GameObject redLight;
     public float whenWasTheLastTimeTheEntityMeetThePlayer = 1;
-    public Vector3 positionOfTheSound = Vector3.zero;
     public bool IsThePlayerGettingChase = false;
     //
     //MONOBEHAVIOUR
@@ -38,7 +35,6 @@ public class EntityBrain : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        roomKdTree.AddAll(roomList);
     }
     private void Start()
     {

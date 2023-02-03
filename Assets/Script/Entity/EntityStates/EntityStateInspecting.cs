@@ -16,11 +16,6 @@ public class EntityStateInspecting : EntityState
     }
     public override void EnterState()
     {
-        Debug.Log("The Entity wears something");
-        //We create a Transform
-        positionOfTheSound = new GameObject("oldPositionOfThePlayer").transform;
-
-        positionOfTheSound.position = brain.positionOfTheSound;
     }
 
     public override void ExitState()
@@ -30,24 +25,9 @@ public class EntityStateInspecting : EntityState
 
     public override void StateUpdate()
     {
-        //Aller à la location du sound
-        brain.entityPathfing.FollowThisTransform(positionOfTheSound);
-        if(brain.CanIHearThePlayer())
-        {
-            positionOfTheSound.position = brain.positionOfTheSound;
-        }
-        //Si on n'a pas trouver le joueur partir sur le chemin plus proche
         CheckIfSwitchState();
     }
     private void CheckIfSwitchState()
     {
-        if(brain.CanISeeThePlayer())
-        {
-            SwitchState(factory.GetAnyState(EntityStates.ChasePlayer));
-        }
-        if(Vector3.Distance(brain.transform.position, positionOfTheSound.position) <= buffer)
-        {
-            SwitchState(factory.GetAnyState(EntityStates.FollowPath));
-        }   
     }
 }

@@ -27,7 +27,6 @@ public class GeneratorManager : MonoBehaviour
     public void SpawnCurrentStep()
     {
         Spawn(spawnLists[step].GetRandomSpawnPoint());
-        SpawnMonster();
     }
 
     public void Spawn(SpawnPoint spawnPoint)
@@ -50,6 +49,7 @@ public class GeneratorManager : MonoBehaviour
         try
         {
             SpawnCurrentStep();
+            SpawnMonster();
         }
         catch 
         {
@@ -59,8 +59,7 @@ public class GeneratorManager : MonoBehaviour
     }
     public void SpawnMonster()
     {
-        if (spawnMonstre == null) return;
-        if(step == 1)
+        if(step >= 1)
         {
             monstrePrefab.SetActive(true);
             FindObjectOfType<AudioManager>().PlaySound("SpawnMonster");
