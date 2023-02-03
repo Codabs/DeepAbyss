@@ -52,7 +52,7 @@ public class EntityBrain : MonoBehaviour
     {
         currentState.StateUpdate();
         nameOfTheCurrentState = currentState.nameOhTheState.ToString();
-        if(entityPathfing.navMeshAgent.speed < 15)
+        if(entityPathfing.navMeshAgent.speed < 10)
             entityPathfing.navMeshAgent.speed += 0.05f;
     }
     //

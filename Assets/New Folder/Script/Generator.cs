@@ -5,7 +5,6 @@ using UnityEngine;
 public class Generator : MonoBehaviour
 {
     public Door door;
-
     public GameObject _light;
     public bool isOn = false;
 

@@ -23,7 +23,7 @@ public class EntityStateChasePlayerButLoseSight : EntityState
     public override void StateUpdate()
     {
         //We start a timer of 10 sec, after that, if the entity didn't see the player, the go pack on follow path
-        if(timer > 25)
+        if(timer > 10)
         {
             SwitchState(factory.GetAnyState(EntityStates.FollowPath));
         }

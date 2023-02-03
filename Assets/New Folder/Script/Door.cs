@@ -14,7 +14,7 @@ public class Door : MonoBehaviour
         if(VerifyAllGenerators())
         {
             Debug.Log("OKI");
-            doorCollider.SetActive(false);
+            gameObject.SetActive(false);
         }
         else
         {
