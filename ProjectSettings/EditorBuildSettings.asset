@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/_external/Template/OutdoorsScene.unity
-    guid: 8124e5870f4fd4c779e7a5f994e84ad1
   - enabled: 1
     path: Assets/Scene/Menu.unity
     guid: 1cd2c58b442bc754a8dd5d784cbf7caf
+  - enabled: 1
+    path: Assets/New Folder/Scenes/Niveau_MAXIME.unity
+    guid: 8b9fde279475b6d49a03de23eefd0dfb
   m_configObjects: {}

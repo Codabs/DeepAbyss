@@ -162,6 +162,17 @@
                 },
                 {
                     "name": "",
+                    "id": "2176b5fc-004d-427c-99f5-83e46d300040",
+                    "path": "<Keyboard>/alt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "3d294c87-18d1-4168-a5cf-dcd7be65ebf0",
                     "path": "<Gamepad>/rightStickPress",
                     "interactions": "",

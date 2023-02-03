@@ -12397,7 +12397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1802651000
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12468,8 +12468,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70
-  m_fontSizeBase: 70
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -12507,7 +12507,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1802651002
@@ -13096,7 +13096,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b469ddc754854fa4f82a9f9dc41eff3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoadIndex: 0
+  sceneToLoadIndex: 1
   transitionAnimator: {fileID: 1454300070}
 --- !u!1001 &1912584426
 PrefabInstance:
@@ -14448,7 +14448,7 @@ PrefabInstance:
     - target: {fileID: 9142528438721770853, guid: e19e136a6dbec184c919798d3d3549f7,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -49.53595
+      value: -49.53589
       objectReference: {fileID: 0}
     - target: {fileID: 9142528438721770853, guid: e19e136a6dbec184c919798d3d3549f7,
         type: 3}
