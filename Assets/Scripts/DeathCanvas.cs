@@ -17,6 +17,9 @@ public class DeathCanvas : Singleton<DeathCanvas>
     public void Death()
     {
         _deathGameObject.SetActive(true);
+        FindObjectOfType<AudioManager>().StopAllSounds();
+        FindObjectOfType<AudioManager>().PlaySound("PlayerDeath");
+        FindObjectOfType<AudioManager>().PlaySound("Menu");
 
         StartCoroutine(_Death());
     }
