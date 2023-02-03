@@ -50,13 +50,13 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
         // everything related to water
         CheckWaterHeight();
 
-        // Déplacement du joueur (zqsd + sprint)
+        // Dï¿½placement du joueur (zqsd + sprint)
         CcMove();
 
-        // gravité
+        // gravitï¿½
         GravityHandler();
 
-        // Lumière
+        // Lumiï¿½re
         if (_enabledLight)
             RayOfLight();
 
@@ -191,15 +191,15 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
 
     #endregion
 
-    #region Gravité
+    #region Gravitï¿½
 
-    // information de la gravité
+    // information de la gravitï¿½
     [Space(5), Header("Gravity")]
     private Vector3 moveDirection = Vector3.zero;
     [SerializeField] private float gravity = 30f;
     void GravityHandler() 
     {
-        // Appliquer la gravité
+        // Appliquer la gravitï¿½
         if (_cc.isGrounded)
             moveDirection.y = 0f;
         else 
@@ -224,26 +224,27 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
     {
         if(_enabledLight) DisableLight();
         else EnableLight();
+        FindObjectOfType<AudioManager>().PlaySound("FlashLightSwitch");
     }
 
     /// <summary>
-    /// Active la lumière du joueur.
+    /// Active la lumiï¿½re du joueur.
     /// </summary>
     public void EnableLight() 
     { 
         _enabledLight = true; 
         _light.gameObject.SetActive(true); 
-        lightSource.PlayOneShot(lightButtonSound); 
+        //lightSource.PlayOneShot(lightButtonSound); 
     }
 
     /// <summary>
-    /// Desactive la lumière du joueur.
+    /// Desactive la lumiï¿½re du joueur.
     /// </summary>
     public void DisableLight()
     {
         _enabledLight = false;
         _light.gameObject.SetActive(false);
-        lightSource.PlayOneShot(lightButtonSound);
+        //lightSource.PlayOneShot(lightButtonSound);
     }
 
 
@@ -286,14 +287,22 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
         {
             if (volume.profile != underWaterProfile)
                 volume.profile = underWaterProfile;
-
+            if(isUnderWater != true){
+                FindObjectOfType<AudioManager>().ResumeSound("InWater");
+                FindObjectOfType<AudioManager>().getSound("Ambiance1").pitch = 0.6f;
+                FindObjectOfType<AudioManager>().getSound("Ambiance1").volume = 0.6f;
+            }
             isUnderWater = true;
         }
         else 
         {
             if (volume.profile != normalProfile)
                 volume.profile = normalProfile;
-
+            if(isUnderWater == true){
+                FindObjectOfType<AudioManager>().PauseSound("InWater");
+                FindObjectOfType<AudioManager>().getSound("Ambiance1").pitch = 0.9f;
+                FindObjectOfType<AudioManager>().getSound("Ambiance1").volume = 0.8f;
+            }
             isUnderWater = false;
         }
     }

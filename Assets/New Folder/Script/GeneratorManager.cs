@@ -56,6 +56,7 @@ public class GeneratorManager : MonoBehaviour
         if(step == 1)
         {
             monstrePrefab.SetActive(true);
+            FindObjectOfType<AudioManager>().PlaySound("SpawnMonster");
         }
     }
 }
