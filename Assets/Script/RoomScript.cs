@@ -22,16 +22,16 @@ public class RoomScript : MonoBehaviour
     //
     public IEnumerator ShutDownAllLightInTheRoom()
     {
-        for(int i = 0; i <= lightsInTheRoom.Length; i++)
+        if (AreTheLightOn) 
         {
-            ShutDownThisLight(lightsInTheRoom[i]);
+            AreTheLightOn = false;
+            for (int i = 0; i <= lightsInTheRoom.Length; i++)
+            {
+                lightsInTheRoom[i].ShutDownTheLight();
+            }
+            yield return new WaitForSeconds(1f);
+            this.enabled = false;
         }
-        yield return new WaitForSeconds(3f);
-        AreTheLightOn = false;
-    }
-    private void ShutDownThisLight(BreakableLight light)
-    {
-        StartCoroutine(light.ShutDownTheLight());
     }
     //
     //Gizmos

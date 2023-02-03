@@ -152,6 +152,17 @@
                 {
                     "name": "",
                     "id": "6089b028-8b5f-4dc6-b5b2-5174564faa31",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2176b5fc-004d-427c-99f5-83e46d300040",
                     "path": "<Keyboard>/alt",
                     "interactions": "",
                     "processors": "",

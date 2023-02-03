@@ -31,6 +31,8 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
     private void Awake()
     {
         _inputs = InputManager.Instance;
+        UnityEngine.Cursor.visible = false;
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void OnEnable()
@@ -246,13 +248,18 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
 
 
     // tire un raycast tout droit quand la lampe et activer
-    private void RayOfLight()
+    public void RayOfLight()
     {
         RaycastHit hit;
         if (Physics.Raycast(_pointLight.transform.position, _pointLight.transform.forward, out hit, 25f, _lightLayerDetection))
         {
             Debug.DrawRay(_pointLight.transform.position, _pointLight.transform.TransformDirection(Vector3.forward) * hit.distance, Color.green);
             Debug.Log($"Did hit {hit.collider.name}");
+            if(hit.collider.TryGetComponent<EntityBrain>(out EntityBrain brain))
+            {
+                if(brain.IsThePlayerGettingChase) 
+                brain.entityPathfing.navMeshAgent.speed -= 0.7f;
+            }
         }
         else
         {

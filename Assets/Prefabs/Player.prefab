@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &4227685741879695421
 Transform:
@@ -99,7 +99,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &8512571086989468423
 Transform:
@@ -428,9 +428,9 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.60114807, g: 0.63956285, b: 0.745283, a: 1}
-  m_Intensity: 400
-  m_Range: 50
-  m_SpotAngle: 25
+  m_Intensity: 80
+  m_Range: 40
+  m_SpotAngle: 45
   m_InnerSpotAngle: 2
   m_CookieSize: 10
   m_Shadows:
@@ -471,7 +471,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 0
-  m_ColorTemperature: 12500
+  m_ColorTemperature: 6500
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 5, w: 5.0124846}
   m_UseBoundingSphereOverride: 0
@@ -490,10 +490,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 400
+  m_Intensity: 80
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
-  m_InnerSpotPercent: 45
+  m_InnerSpotPercent: 10
   m_SpotIESCutoffPercent: 100
   m_LightDimmer: 1
   m_VolumetricDimmer: 1
@@ -716,10 +716,10 @@ MonoBehaviour:
   lightSource: {fileID: 5363634183745803724}
   lightButtonSound: {fileID: 8300000, guid: 089129fce4fbea44c95f50e78919d7b6, type: 3}
   isUnderWater: 0
-  waterHeigth: -4
+  waterHeigth: -3.75
   volume: {fileID: 0}
-  normalProfile: {fileID: 11400000, guid: b271704a00e9078448afd928405a0ddd, type: 2}
-  underWaterProfile: {fileID: 11400000, guid: e453891558e484b45b3c692d90fe5176, type: 2}
+  normalProfile: {fileID: 11400000, guid: a1c6cc821b240b34ba171756fc247050, type: 2}
+  underWaterProfile: {fileID: 11400000, guid: a1c6cc821b240b34ba171756fc247050, type: 2}
   maxDistanceInteractable: 3
   materialOutline: {fileID: 2100000, guid: 4269df3371094e4489a531a395a57eaa, type: 2}
   OldMaterial: {fileID: 0}
@@ -899,7 +899,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5093040178343840037}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0.75, z: 0.035}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -908,7 +908,7 @@ Transform:
   - {fileID: 5093040177953337209}
   m_Father: {fileID: 5093040177953008110}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!95 &5093040178343840035
 Animator:
   serializedVersion: 4

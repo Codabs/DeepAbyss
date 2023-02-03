@@ -11,8 +11,9 @@ public class EntityStateChasePlayer : EntityState
     public override void EnterState()
     {
         brain.entityPathfing.FollowThisTransform(brain.player);
+        brain.redLight.SetActive(true);
+        brain.IsThePlayerGettingChase = true;
     }
-
     public override void ExitState()
     {
 

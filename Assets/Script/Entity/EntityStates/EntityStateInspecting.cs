@@ -8,6 +8,7 @@ public class EntityStateInspecting : EntityState
     //Variables
     //
     private Transform positionOfTheSound = null;
+    public float buffer = 0.5f;
     public EntityStateInspecting(EntityBrain entityBrain, EntityStateFactory stateFactory) : base(entityBrain, stateFactory)
     {
         nameOhTheState = EntityStates.Instpecting;
@@ -19,7 +20,7 @@ public class EntityStateInspecting : EntityState
         //We create a Transform
         positionOfTheSound = new GameObject("oldPositionOfThePlayer").transform;
 
-        //positionOfTheSound.position = brain.player.position;
+        positionOfTheSound.position = brain.positionOfTheSound;
     }
 
     public override void ExitState()
@@ -33,7 +34,7 @@ public class EntityStateInspecting : EntityState
         brain.entityPathfing.FollowThisTransform(positionOfTheSound);
         if(brain.CanIHearThePlayer())
         {
-            //positionOfTheSound = 
+            positionOfTheSound.position = brain.positionOfTheSound;
         }
         //Si on n'a pas trouver le joueur partir sur le chemin plus proche
         CheckIfSwitchState();
@@ -44,9 +45,9 @@ public class EntityStateInspecting : EntityState
         {
             SwitchState(factory.GetAnyState(EntityStates.ChasePlayer));
         }
-        if(brain.entityEyes.CanISeeThisTransform(positionOfTheSound))
+        if(Vector3.Distance(brain.transform.position, positionOfTheSound.position) <= buffer)
         {
             SwitchState(factory.GetAnyState(EntityStates.FollowPath));
-        }
+        }   
     }
 }

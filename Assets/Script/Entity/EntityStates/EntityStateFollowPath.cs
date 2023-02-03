@@ -11,6 +11,9 @@ public class EntityStateFollowPath : EntityState
     public override void EnterState()
     {
         //Go the closest waypoint
+        brain.redLight.SetActive(false);
+        brain.entityPathfing.ChosePath(brain.entityPathfing.actualPath);
+        brain.IsThePlayerGettingChase = false;
     }
     public override void ExitState()
     {
@@ -29,10 +32,6 @@ public class EntityStateFollowPath : EntityState
         {
             //Yes SwitchState to Chase
             SwitchState(factory.GetAnyState(EntityStates.ChasePlayer));
-        }
-        else if(brain.CanIHearThePlayer())
-        {
-            SwitchState(factory.GetAnyState(EntityStates.Instpecting));
         }
         //Did I Hear The Player ?
         //Yes SwitchState to Inspecting 
