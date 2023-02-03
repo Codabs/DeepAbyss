@@ -326,7 +326,7 @@ public class Player_Controller_1st_Person : Singleton<Player_Controller_1st_Pers
             _generator.On();
             _generator.door.generatorManager.ValidateStep();
             //_generator.door.generatorManager.SpawnCurrentStep();
-            //_generator.door.VerifyAllGenerators();
+            _generator.door.VerifyAllGenerators();
             hitInteracte.collider.gameObject.layer = 0;
             Debug.Log($"layer {hitInteracte.collider.gameObject.layer}");
         }

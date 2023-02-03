@@ -6,9 +6,9 @@ public class GeneratorManager : MonoBehaviour
 {
     [Range(0,3)]
     public int step = 0;
-    
+
     [Header("Generators")]
-    public List<Generator> generators = new List<Generator>(4);
+    public List<Generator> generators = new();
     public List<SpawnList> spawnLists = new List<SpawnList>();
     public GameObject generatorPrefab;
     [Space(5)]
@@ -27,7 +27,7 @@ public class GeneratorManager : MonoBehaviour
     public void SpawnCurrentStep()
     {
         Spawn(spawnLists[step].GetRandomSpawnPoint());
-        SpawnMonster(spawnMonstre);
+        SpawnMonster();
     }
 
     public void Spawn(SpawnPoint spawnPoint)
@@ -43,14 +43,21 @@ public class GeneratorManager : MonoBehaviour
     public void ValidateStep()
     {
         step++;
-        if (step >= generators.Count) 
+        /*if (step >= generators.Count) 
         { 
             step = generators.Count - 1; 
+        }*/
+        try
+        {
+            SpawnCurrentStep();
         }
-        SpawnCurrentStep();
+        catch 
+        {
+            door.gameObject.SetActive(false);
+        }
 
     }
-    public void SpawnMonster(SpawnMonstre newSpawnMonstre)
+    public void SpawnMonster()
     {
         if (spawnMonstre == null) return;
         if(step == 1)

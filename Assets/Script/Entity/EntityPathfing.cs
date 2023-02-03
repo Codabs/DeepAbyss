@@ -65,10 +65,10 @@ public class EntityPathfing : MonoBehaviour
         {
             Debug.Log("waypoint finish");
             //We go to the next waypoint
-            if(targetWaypointIndex  >= waypoints.Length) //If we finished the path, we restart 
+            /*if(targetWaypointIndex  >= waypoints.Length) //If we finished the path, we restart 
                 targetWaypointIndex = 0;
-            else 
-                targetWaypointIndex = (targetWaypointIndex + 1) % waypoints.Length;
+            else */
+                targetWaypointIndex = Mathf.RoundToInt(UnityEngine.Random.Range(0, waypoints.Length - 1));
             targetWaypoint = waypoints[targetWaypointIndex].position;
         }
     }
